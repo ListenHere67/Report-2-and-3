@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>DataSource10k</DataSourceReference>
+      <CommandText>DECLARE @Latest VARCHAR(4)= '2017'
+SELECT  RaceName.RaceName, Participant.PPSno, FirstName, MiddleName, Surname, Address, City, Country, DOB, Gender, CertRec, RaceName.TimeCompletd
+    FROM Participant 
+	LEFT JOIN RaceName ON PARTICIPANT.PPSno = RaceName.PPSno
+	WHERE (
+	(DATEDIFF(minute, 0,CertRec)&lt;=38) AND Gender='M'
+	OR (DATEDIFF(minute, 0,CertRec)&lt;=41) AND Gender='F'
+	) AND Racename.RaceName = @Latest
+	Order By CertRec
+</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="RaceName">
+        <DataField>RaceName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PPSno">
+        <DataField>PPSno</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="FirstName">
+        <DataField>FirstName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="MiddleName">
+        <DataField>MiddleName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Surname">
+        <DataField>Surname</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Address">
+        <DataField>Address</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="City">
+        <DataField>City</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Country">
+        <DataField>Country</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DOB">
+        <DataField>DOB</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Gender">
+        <DataField>Gender</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CertRec">
+        <DataField>CertRec</DataField>
+        <rd:TypeName>System.TimeSpan</rd:TypeName>
+      </Field>
+      <Field Name="TimeCompletd">
+        <DataField>TimeCompletd</DataField>
+        <rd:TypeName>System.TimeSpan</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
